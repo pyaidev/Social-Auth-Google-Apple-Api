@@ -7,20 +7,6 @@ from django.urls import include, path, re_path
 
 from .schema import swagger_urlpatterns
 
-
-class LoginForm(AuthenticationForm):
-    captcha = fields.ReCaptchaField()
-
-    def clean(self):
-        captcha = self.cleaned_data.get("captcha")
-        if not captcha:
-            return
-        return super().clean()
-
-
-admin.site.login_form = LoginForm
-admin.site.login_template = "login.html"
-
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
     path("admin/", admin.site.urls),
